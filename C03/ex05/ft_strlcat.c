@@ -6,39 +6,46 @@
 /*   By: rvan-bae <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:30:19 by rvan-bae          #+#    #+#             */
-/*   Updated: 2023/10/26 10:43:20 by rvan-bae         ###   ########.fr       */
+/*   Updated: 2023/10/26 16:29:09 by rvan-bae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-unsigned int	ft_strlcat(char *dest, char *src, unsigned int size)
+unsigned int	ft_strlen(char *str)
 {
-	unsigned int	dest_len;
-	unsigned int	src_len;
 	unsigned int	i;
 
-	dest_len = 0;
-	src_len = 0;
-	while (dest[dest_len] != '\0')
-		dest_len++;
-	while (src[src_len] != '\0')
-		src_len++;
-	size = size - dest_len;
-	if (size == 0)
-		return (dest_len + src_len);
-	i = dest_len;
-	while (*src)
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+unsigned int	ft_strlcat(char *dest, char *src, unsigned int size)
+{
+	unsigned int	i;
+	unsigned int	j;
+	unsigned int	res_d;
+	unsigned int	res_s;
+
+	i = ft_strlen(dest);
+	j = 0;
+	res_d = ft_strlen(dest);
+	res_s = ft_strlen(src);
+	if (size < 1)
+		return (res_s + size);
+	while (src[j] && i < size - 1)
 	{
-		if (size != 1)
-		{
-			dest[dest_len++] = *src;
-			size--;
-		}
-		src++;
+		dest[i] = src[j];
+		i++;
+		j++;
 	}
-	dest[dest_len] = '\0';
-	return (i + src_len);
+	dest[i] = '\0';
+	if (size < res_d)
+		return (res_s + size);
+	else
+		return (res_d + res_s);
 }
 /*
 #include <stdio.h>

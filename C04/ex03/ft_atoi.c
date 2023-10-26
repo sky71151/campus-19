@@ -1,25 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rvan-bae <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/26 11:46:17 by rvan-bae          #+#    #+#             */
+/*   Updated: 2023/10/26 16:22:20 by rvan-bae         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <unistd.h>
 
-int	checkPosOrNeg(char *str,int *N, int len)
+int	checkposorneg(char *str, int *neg, int len)
 {
-        while (str[len] == '-' || str[len] == '+')
-        {           
-                if (str[len] == '-' && str[len+1] == '-')
-                {   
-                        str[len + 1] = '+';
-                        *N = 0;
-                }
-                else if (str[len] == '-' && str[len+1] == '+')
-                {
-                        str[len + 1] = '-';
-                        *N = 1;
-                }   
-                else if (str[len] == '+' && str[len+1] == '-')
-                        *N = 1;
-                else if (str[len] == '+' && str[len+1] == '+')
-                        *N = 0;
-                len++;
-        }
+	while (str[len] == '-' || str[len] == '+')
+	{
+		if (str[len] == '-' && str[len + 1] == '-')
+		{
+			str[len + 1] = '+';
+			*neg = 0;
+		}
+		else if (str[len] == '-' && str[len + 1] == '+')
+		{
+			str[len + 1] = '-';
+			*neg = 1;
+		}
+		else if (str[len] == '+' && str[len + 1] == '-')
+			*neg = 1;
+		else if (str[len] == '+' && str[len + 1] == '+')
+			*neg = 0;
+		len++;
+	}
 	return (len);
 }
 
@@ -28,12 +40,13 @@ int	ft_atoi(char *str)
 	int	result;
 	int	neg;
 	int	len;
-	
+
+	result = 0;
 	neg = 0;
 	len = 0;
 	while (str[len] == ' ' )
 		len++;
-	len = checkPosOrNeg(str,&neg,len);
+	len = checkposorneg(str, &neg, len);
 	while (str[len] >= '1' && str[len] <= '9')
 	{
 		if (result != 0)
@@ -48,7 +61,7 @@ int	ft_atoi(char *str)
 		result *= -1;
 	return (result);
 }
-
+/*
 #include <stdio.h>
 
 int main(void)
@@ -58,7 +71,4 @@ int main(void)
 	printf("%d\n", ft_atoi(str));
 	return 0;
 }
-
-
-
-		
+*/		
