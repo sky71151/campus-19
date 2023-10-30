@@ -5,25 +5,24 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rvan-bae <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/26 12:04:12 by rvan-bae          #+#    #+#             */
-/*   Updated: 2023/10/26 16:08:44 by rvan-bae         ###   ########.fr       */
+/*   Created: 2023/10/26 17:22:39 by rvan-bae          #+#    #+#             */
+/*   Updated: 2023/10/27 13:39:18 by rvan-bae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include <stdio.h>
 
-char	ft_conversion(int nb, char *str, int div)
+char	ft_conversion(int nb, char *str, char div)
 {
-	char	index1;	
-	int	mod;
+	int		index1;
+	int		mod;
 
 	index1 = 0;
 	while (nb)
 	{
 		mod = nb % div;
 		if (mod > 9)
-			str[index1++] = (mod - 10) + 65;
+			str[index1++] = (mod -10) + 65;
 		else
 			str[index1++] = (mod + 48);
 		nb /= div;
@@ -57,10 +56,9 @@ int	checkbase(char *base)
 
 void	ft_putnbr_base(int nb, char *base)
 {
+	char	div;
 	char	str[50];
-	int	div;
-	char	index;
-	char	neg;
+	int		index;
 
 	div = checkbase(base);
 	if (!div)
@@ -68,23 +66,23 @@ void	ft_putnbr_base(int nb, char *base)
 	if (nb < 0)
 	{
 		nb = nb * (-1);
-		neg = 1;
+		write(1, "-", 1);
 	}
 	index = ft_conversion(nb, str, div);
-	if (neg)
-		str[index++] = '-';
 	while (index--)
 		write(1, &str[index], 1);
 }
+/*
+#include <stdio.h>
 
-int	main(void)
+int     main(void)
 {
-	int	num;
+        int     num;
 
-	num = -6789;
-	ft_putnbr_base(num, "0123456789ABCDEF");
-	printf("\n");
-	num = 32000;
-	ft_putnbr_base(num, "01");
-	return (0);
-}
+        num = -6789;
+        ft_putnbr_base(num, "0123456789ABCDEF");
+        printf("\n");
+        num = 32000;
+        ft_putnbr_base(num, "01");
+        return (0);
+}*/

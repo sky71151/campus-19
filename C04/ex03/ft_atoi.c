@@ -6,11 +6,19 @@
 /*   By: rvan-bae <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 11:46:17 by rvan-bae          #+#    #+#             */
-/*   Updated: 2023/10/26 16:22:20 by rvan-bae         ###   ########.fr       */
+/*   Updated: 2023/10/27 13:43:29 by rvan-bae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
+
+int	ft_isspace(char c)
+{
+	if (c == ' ' || c == '\f' || c == '\n'
+		|| c == '\r' || c == '\t' || c == '\v')
+		return (1);
+	return (0);
+}
 
 int	checkposorneg(char *str, int *neg, int len)
 {
@@ -44,7 +52,7 @@ int	ft_atoi(char *str)
 	result = 0;
 	neg = 0;
 	len = 0;
-	while (str[len] == ' ' )
+	while (ft_isspace(str[len]))
 		len++;
 	len = checkposorneg(str, &neg, len);
 	while (str[len] >= '1' && str[len] <= '9')
@@ -66,7 +74,7 @@ int	ft_atoi(char *str)
 
 int main(void)
 {
-	char	str[] = "     ---+--+1234ab567";
+	char	str[] = "	 ---+--+1234ab567";
 
 	printf("%d\n", ft_atoi(str));
 	return 0;
