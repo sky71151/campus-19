@@ -1,26 +1,42 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_ultimate_range.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rvan-bae <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/31 13:30:06 by rvan-bae          #+#    #+#             */
+/*   Updated: 2023/10/31 13:44:18 by rvan-bae         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <unistd.h>
 #include <stdlib.h>
 
-int ft_ultimate_range(int **range, int min, int max) {
-    if (min >= max) {
-        *range = NULL;
-        return 0;
-    }
+int	ft_ultimate_range(int **range, int min, int max)
+{
+	int		size;
+	int		index;
 
-    int size = max - min;
-    *range = (int*)malloc(sizeof(int) * size);
-
-    if (*range == NULL) {
-        return -1; 
-    }
-
-    for (int i = 0; min < max; i++, min++) {
-        (*range)[i] = min;
-    }
-
-    return size;
+	size = max - min;
+	index = 0;
+	if (min >= max)
+	{
+		*range = NULL;
+		return (0);
+	}
+	*range = (int *)malloc(sizeof(int) * size);
+	if (*range == NULL)
+		return (-1);
+	while (min < max)
+	{
+		(*range)[index] = min;
+		index++;
+		min++;
+	}
+	return (size);
 }
-
+/*
 
 #include <stdio.h>
 
@@ -49,4 +65,4 @@ int main(void)
 		size--;
 		index++;
 	}
-}
+}*/
