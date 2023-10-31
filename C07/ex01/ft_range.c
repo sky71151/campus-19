@@ -23,11 +23,12 @@ int	*ft_range(int min, int max)
 	size = max - min;
 	if (min >= max)
 	{
-		p = (int *)malloc(1);
-		p[0] = 0;
-		return (p);
+		p = NULL
+		return (0);
 	}
 	p = (int *)malloc(size * sizeof(int));
+	if (p == NULL)
+		return (-1);
 	while ((min + index) < max)
 	{
 		p[index] = min + index;
