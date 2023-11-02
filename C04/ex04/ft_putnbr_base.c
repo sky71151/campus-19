@@ -6,73 +6,75 @@
 /*   By: rvan-bae <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 17:22:39 by rvan-bae          #+#    #+#             */
-/*   Updated: 2023/10/27 13:39:18 by rvan-bae         ###   ########.fr       */
+/*   Updated: 2023/11/02 16:23:41 by rvan-bae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-char	ft_conversion(int nb, char *str, char div)
+void	ft_putchar(char c)
 {
-	int		index1;
-	int		mod;
+	write(1, &c, 1);
+}
 
-	index1 = 0;
-	while (nb)
+void	ft_erreur(char *base, int *erreur)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	if (base[0] == '\0' || base[1] == '\0')
+		*erreur = 1;
+	while (base[i] && *erreur == 0)
 	{
-		mod = nb % div;
-		if (mod > 9)
-			str[index1++] = (mod -10) + 65;
+		j = i;
+		while (base[j] != '\0')
+		{
+			j++;
+			if (base[i] == base[j])
+				*erreur = 1;
+		}
+		if (base[i] == '+' || base[i] == '-' || base[i] == '%'
+			|| base[i] == '/' || base[i] == '*' || base[i] == '='
+			|| base[i] == ',' || base[i] == '.'
+			|| base[i] < 33 || base[i] > 126)
+			*erreur = 1;
 		else
-			str[index1++] = (mod + 48);
-		nb /= div;
+			i++;
 	}
-	return (index1);
 }
 
-int	ft_strcmp(char *s1, char *s2)
+void	ft_putnbr_base(int nbr, char *base)
 {
-	while (*s1 && *s2 && *s1 == *s2)
+	int		lbase;
+	int		erreur;
+	long	nb;
+
+	lbase = 0;
+	erreur = 0;
+	ft_erreur(base, &erreur);
+	nb = nbr;
+	if (erreur == 0)
 	{
-		s1++;
-		s2++;
+		if (nb < 0)
+		{
+			ft_putchar('-');
+			nb *= -1;
+		}
+		while (base[lbase])
+			lbase++;
+		if (nb < lbase)
+			ft_putchar(base[nb]);
+		if (nb >= lbase)
+		{
+			ft_putnbr_base(nb / lbase, base);
+			ft_putnbr_base(nb % lbase, base);
+		}
 	}
-	return (*s1 - *s2);
-}
-
-int	checkbase(char *base)
-{
-	if (!ft_strcmp("0123456789", base))
-		return (10);
-	else if (!ft_strcmp("01", base))
-		return (2);
-	else if (!ft_strcmp("0123456789ABCDEF", base))
-		return (16);
-	else if (!ft_strcmp("poneyvif", base))
-		return (8);
-	else
-		return (0);
-}
-
-void	ft_putnbr_base(int nb, char *base)
-{
-	char	div;
-	char	str[50];
-	int		index;
-
-	div = checkbase(base);
-	if (!div)
-		return ;
-	if (nb < 0)
-	{
-		nb = nb * (-1);
-		write(1, "-", 1);
-	}
-	index = ft_conversion(nb, str, div);
-	while (index--)
-		write(1, &str[index], 1);
 }
 /*
+
 #include <stdio.h>
 
 int     main(void)
@@ -83,6 +85,6 @@ int     main(void)
         ft_putnbr_base(num, "0123456789ABCDEF");
         printf("\n");
         num = 32000;
-        ft_putnbr_base(num, "01");
+        ft_putnbr_base(num, "1234");
         return (0);
 }*/
