@@ -56,7 +56,7 @@ char	*ft_strjoin(int size, char **strs, char *sep)
 
 	index = 0;
 	lenght = 0;
-	p = NULL;
+	p = 0;
 	if (size == 0)
 		return (pointerzero(p));
 	while (index < size)

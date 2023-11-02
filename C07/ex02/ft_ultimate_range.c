@@ -6,7 +6,7 @@
 /*   By: rvan-bae <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 13:30:06 by rvan-bae          #+#    #+#             */
-/*   Updated: 2023/10/31 13:44:18 by rvan-bae         ###   ########.fr       */
+/*   Updated: 2023/10/31 16:26:46 by rvan-bae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ int	ft_ultimate_range(int **range, int min, int max)
 	if (min >= max)
 	{
 		*range = NULL;
-		return (0);
+		return (NULL);
 	}
 	*range = (int *)malloc(sizeof(int) * size);
 	if (*range == NULL)
-		return (-1);
+		return (NULL);
 	while (min < max)
 	{
 		(*range)[index] = min;
@@ -36,7 +36,7 @@ int	ft_ultimate_range(int **range, int min, int max)
 	}
 	return (size);
 }
-/*
+
 
 #include <stdio.h>
 
@@ -65,4 +65,6 @@ int main(void)
 		size--;
 		index++;
 	}
-}*/
+	free(p);
+	return (0);
+}
