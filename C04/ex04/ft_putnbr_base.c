@@ -5,11 +5,10 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rvan-bae <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/26 17:22:39 by rvan-bae          #+#    #+#             */
-/*   Updated: 2023/11/02 16:23:41 by rvan-bae         ###   ########.fr       */
+/*   Created: 2023/11/06 10:30:29 by rvan-bae          #+#    #+#             */
+/*   Updated: 2023/11/06 10:50:09 by rvan-bae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include <unistd.h>
 
 void	ft_putchar(char c)
@@ -17,74 +16,60 @@ void	ft_putchar(char c)
 	write(1, &c, 1);
 }
 
-void	ft_erreur(char *base, int *erreur)
+int		ft_in_base(char c, char *base)
 {
-	int	i;
-	int	j;
+	int	index;
+	
+	index = 0;
+	while (base[index])
+		if (c == base[index++])
+			return (1);
+	return (0);
+}
 
-	i = 0;
-	j = 0;
-	if (base[0] == '\0' || base[1] == '\0')
-		*erreur = 1;
-	while (base[i] && *erreur == 0)
+void	ft_print(unsigned int n, char *base, unsigned int size)
+{
+	if (n > size - 1)
 	{
-		j = i;
-		while (base[j] != '\0')
-		{
-			j++;
-			if (base[i] == base[j])
-				*erreur = 1;
-		}
-		if (base[i] == '+' || base[i] == '-' || base[i] == '%'
-			|| base[i] == '/' || base[i] == '*' || base[i] == '='
-			|| base[i] == ',' || base[i] == '.'
-			|| base[i] < 33 || base[i] > 126)
-			*erreur = 1;
-		else
-			i++;
+		ft_print(n / size, base, size);
+		n %= size;
 	}
+	ft_putchar(base[n]);
 }
 
 void	ft_putnbr_base(int nbr, char *base)
 {
-	int		lbase;
-	int		erreur;
-	long	nb;
+	int size;
 
-	lbase = 0;
-	erreur = 0;
-	ft_erreur(base, &erreur);
-	nb = nbr;
-	if (erreur == 0)
+	size = 0;
+	while (base[size])
 	{
-		if (nb < 0)
-		{
-			ft_putchar('-');
-			nb *= -1;
-		}
-		while (base[lbase])
-			lbase++;
-		if (nb < lbase)
-			ft_putchar(base[nb]);
-		if (nb >= lbase)
-		{
-			ft_putnbr_base(nb / lbase, base);
-			ft_putnbr_base(nb % lbase, base);
-		}
+		if (base[size] == '+' || base[size] == '-' || base[size] == ' '
+			|| ft_in_base(base[size], base + size + 1)
+			|| (base[size] >= 9 && base[size] <= 13))
+			return ;
+		size++;
 	}
+	if (size < 2)
+		return ;
+	if (nbr < 0)
+	{
+		ft_putchar('-');
+		ft_print(-nbr, base, size);
+	}
+	else
+		ft_print(nbr, base, size);
 }
-/*
 
 #include <stdio.h>
+#include <stdlib.h>
 
-int     main(void)
-{
-        int     num;
-
-        num = -6789;
-        ft_putnbr_base(num, "0123456789ABCDEF");
-        printf("\n");
-        num = 32000;
-        ft_putnbr_base(num, "1234");
-        return (0);
-}*/
+int main(int argc, char **argv)
+{	
+	if (argc == 3)
+	{
+		int number = atoi(argv[1]);
+		ft_putnbr_base(number, argv[2]);
+	}
+	return (0);
+}
