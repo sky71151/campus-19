@@ -7,7 +7,7 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "${file}",
+                "${file}","${fileDirname}/ft_strncmp.c",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
             ],
