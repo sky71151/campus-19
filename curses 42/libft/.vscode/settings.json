@@ -57,6 +57,7 @@
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "C_Cpp_Runner.compilerArgs": [],
   "files.associations": {
-    "libft.h": "c"
+    "libft.h": "c",
+    "stdlib.h": "c"
   }
 }

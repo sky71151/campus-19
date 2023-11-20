@@ -22,6 +22,9 @@ int	ft_strncmp(const char *s1, const char *s2, unsigned int n);
 void *ft_memchr(const void *ptr, int value, size_t num) ;
 int ft_memcmp(const void *ptr1, const void *ptr2, size_t num);
 char *ft_strnstr(const char *source, const char *search, size_t len);
+int	ft_atoi(const char *str);
+void *ft_calloc(size_t num_elements, size_t element_size);
+char *ft_strdup(const char *source);
 
 
 
