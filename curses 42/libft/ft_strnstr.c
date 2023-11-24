@@ -2,16 +2,18 @@
 
 char *ft_strnstr(const char *source, const char *search, size_t len) 
 {
-    size_t search_len = ft_strlen(search);
-
-    if (!*search) {
+    size_t search_len;
+    
+    if (source == NULL || search == NULL)
+        return NULL;
+    search_len= ft_strlen(search);
+    if (search_len == 0)
         return (char *)source;
-    }
 
-    while (*source && len >= search_len) {
-        if (*source == *search && ft_strncmp(source, search, search_len) == 0) {
+    while (*source && len >= search_len)
+    {
+        if (*source == *search && ft_strncmp(source, search, search_len) == 0)
             return (char *)source;
-        }
         source++;
         len--;
     }

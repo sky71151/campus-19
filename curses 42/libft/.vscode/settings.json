@@ -58,6 +58,7 @@
   "C_Cpp_Runner.compilerArgs": [],
   "files.associations": {
     "libft.h": "c",
-    "stdlib.h": "c"
+    "stdlib.h": "c",
+    "stdio.h": "c"
   }
 }

@@ -4,7 +4,10 @@ void    ft_bzero(void *ptr, size_t num)
 {
     unsigned char *p;
 
-    p = ptr;
+     if (ptr == NULL || num == 0)
+        return;
+
+    p = (unsigned char *)ptr;
     while (num--)
     {
         *p = 0;
